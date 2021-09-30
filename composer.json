@@ -1,0 +1,49 @@
+{
+    "name": "isaeken/loops",
+    "version": "v1.0",
+    "description": "Basic loops library",
+    "keywords": [
+        "loops",
+        "library",
+        "isaeken"
+    ],
+    "homepage": "https://github.com/isaeken/loops",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "İsa Eken",
+            "email": "hello@isaeken.com.tr",
+            "role": "Founder",
+            "homepage": "https://www.isaeken.com.tr"
+        }
+    ],
+    "require": {
+        "php": "^8.0"
+    },
+    "require-dev": {
+        "pestphp/pest": "^1.20"
+    },
+    "autoload": {
+        "psr-4": {
+            "IsaEken\\Loops\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "IsaEken\\Loops\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/pest --no-coverage",
+        "test-coverage": "./vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
