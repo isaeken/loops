@@ -2,7 +2,7 @@
 
 use IsaEken\Loops\Loop;
 
-if (!function_exists('loop')) {
+if (! function_exists('loop')) {
     /**
      * Run the loop instance.
      *
@@ -17,7 +17,7 @@ if (!function_exists('loop')) {
     }
 }
 
-if (!function_exists('loop_random')) {
+if (! function_exists('loop_random')) {
     /**
      * Call the loop function random times.
      *
@@ -32,11 +32,9 @@ if (!function_exists('loop_random')) {
         if ($min === null && $max === null) {
             $min = 0;
             $max = rand(0, 99);
-        }
-        else if ($min === null) {
+        } elseif ($min === null) {
             $min = 0;
-        }
-        else if ($max === null) {
+        } elseif ($max === null) {
             $max = rand($min, $min + 99);
         }
 

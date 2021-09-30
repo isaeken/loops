@@ -29,23 +29,23 @@ it('loop incrementing is valid', function () {
     $return = [
         (object) [
             'iteration' => 0,
-            'index'     => 0,
+            'index' => 0,
             'remaining' => 1,
-            'count'     => 2,
-            'first'     => true,
-            'last'      => false,
-            'odd'       => false,
-            'even'      => true,
+            'count' => 2,
+            'first' => true,
+            'last' => false,
+            'odd' => false,
+            'even' => true,
         ],
         (object) [
             'iteration' => 1,
-            'index'     => 1,
+            'index' => 1,
             'remaining' => 0,
-            'count'     => 2,
-            'first'     => false,
-            'last'      => true,
-            'odd'       => true,
-            'even'      => false,
+            'count' => 2,
+            'first' => false,
+            'last' => true,
+            'odd' => true,
+            'even' => false,
         ],
     ];
 
@@ -53,14 +53,14 @@ it('loop incrementing is valid', function () {
 });
 
 it('run helpers', function () {
-    assertCount(2, loop(2, fn() => ''));
-    assertTrue(count(loop_random(fn() => '')) > 0);
+    assertCount(2, loop(2, fn () => ''));
+    assertTrue(count(loop_random(fn () => '')) > 0);
 });
 
 it('random is correct', function () {
-    assertTrue(count(loop_random(fn() => '', 10)) > 10);
-    assertTrue(count(loop_random(fn() => '', null, 10)) < 10);
+    assertTrue(count(loop_random(fn () => '', 10)) > 10);
+    assertTrue(count(loop_random(fn () => '', null, 10)) < 10);
 
-    $count = count(loop_random(fn() => '', 5, 10));
+    $count = count(loop_random(fn () => '', 5, 10));
     assertTrue($count > 5 && $count < 10);
 });

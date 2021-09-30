@@ -7,12 +7,12 @@ use Closure;
 class Loop
 {
     /**
-     * @var object $loop
+     * @var object
      */
     private object $loop;
 
     /**
-     * @var bool $run
+     * @var bool
      */
     private bool $run = true;
 
@@ -26,13 +26,13 @@ class Loop
     ) {
         $this->loop = (object) [
             'iteration' => 0,
-            'index'     => 0,
+            'index' => 0,
             'remaining' => $this->length - 1 ?? null,
-            'count'     => $this->length,
-            'first'     => true,
-            'last'      => $this->length == 1,
-            'odd'       => false,
-            'even'      => true,
+            'count' => $this->length,
+            'first' => true,
+            'last' => $this->length == 1,
+            'odd' => false,
+            'even' => true,
         ];
     }
 
@@ -45,8 +45,8 @@ class Loop
         $this->loop->index = $this->loop->iteration;
         $this->loop->first = $this->loop->iteration == 0;
         $this->loop->last = $this->loop->iteration == $this->loop->count - 1;
-        $this->loop->odd = !$this->loop->odd;
-        $this->loop->even = !$this->loop->even;
+        $this->loop->odd = ! $this->loop->odd;
+        $this->loop->even = ! $this->loop->even;
         $this->loop->remaining = $this->loop->remaining - 1;
     }
 
@@ -62,7 +62,7 @@ class Loop
             $returns[] = $this->callback->call($this, clone $this->loop, $this);
             $this->increment();
 
-            if (!$this->run) {
+            if (! $this->run) {
                 break;
             }
         }
