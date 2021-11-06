@@ -54,7 +54,7 @@ it('loop incrementing is valid', function () {
 
 it('run helpers', function () {
     assertCount(2, loop(2, fn () => ''));
-    assertTrue(count(loop_random(fn () => '')) > 0);
+    assertTrue(count(loop_random(fn () => '')) >= 0);
 });
 
 it('random is correct', function () {
