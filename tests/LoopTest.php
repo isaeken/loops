@@ -58,9 +58,9 @@ it('run helpers', function () {
 });
 
 it('random is correct', function () {
-    assertTrue(count(loop_random(fn () => '', 10)) > 10);
-    assertTrue(count(loop_random(fn () => '', null, 10)) < 10);
+    assertTrue(count(loop_random(fn () => '', 10)) >= 10);
+    assertTrue(count(loop_random(fn () => '', null, 10)) <= 10);
 
     $count = count(loop_random(fn () => '', 5, 10));
-    assertTrue($count > 5 && $count < 10);
+    assertTrue($count >= 5 && $count <= 10);
 });
