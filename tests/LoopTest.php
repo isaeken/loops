@@ -3,6 +3,8 @@
 use IsaEken\Loops\Loop;
 use function PHPUnit\Framework\assertCount;
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertGreaterThanOrEqual;
+use function PHPUnit\Framework\assertLessThanOrEqual;
 use function PHPUnit\Framework\assertTrue;
 
 it('loop is working', function () {
@@ -54,12 +56,12 @@ it('loop incrementing is valid', function () {
 
 it('run helpers', function () {
     assertCount(2, loop(2, fn () => ''));
-    assertTrue(count(loop_random(fn () => '')) >= 0);
+    assertGreaterThanOrEqual(0, count(loop_random(fn () => '')));
 });
 
 it('random is correct', function () {
-    assertTrue(count(loop_random(fn () => '', 10)) >= 10);
-    assertTrue(count(loop_random(fn () => '', null, 10)) <= 10);
+    assertGreaterThanOrEqual(10, count(loop_random(fn () => '', 10)));
+    assertLessThanOrEqual(10, count(loop_random(fn () => '', null, 10)));
 
     $count = count(loop_random(fn () => '', 5, 10));
     assertTrue($count >= 5 && $count <= 10);
