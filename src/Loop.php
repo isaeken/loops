@@ -72,4 +72,14 @@ class Loop
     {
         $this->run = false;
     }
+
+    /**
+     * Break loop after current closure.
+     *
+     * @return void
+     */
+    public function break(): void
+    {
+        $this->run = false;
+    }
 }

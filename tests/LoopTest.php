@@ -18,7 +18,7 @@ it('loop is working', function () {
 
 it('loop is breakable', function () {
     $loop = new Loop(2, function ($loop, $instance) {
-        $instance->stop();
+        $instance->break();
     });
 
     assertCount(1, $loop->run());
