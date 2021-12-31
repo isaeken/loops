@@ -6,16 +6,23 @@ use Closure;
 
 class Loop
 {
+    /**
+     * The index model of current loop.
+     *
+     * @var Index $index
+     */
     private Index $index;
 
     /**
-     * @var bool
+     * To check if this variable loop is working.
+     *
+     * @var bool $run
      */
     private bool $run = true;
 
     /**
-     * @param int $length
-     * @param Closure|null $callback
+     * @param int $length Count of loop indexes.
+     * @param Closure|null $callback Closure to be called every loop.
      */
     public function __construct(public int $length, public Closure|null $callback = null)
     {
