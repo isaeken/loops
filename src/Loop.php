@@ -15,9 +15,9 @@ class Loop
 
     /**
      * @param int $length
-     * @param Closure $callback
+     * @param Closure|null $callback
      */
-    public function __construct(public int $length, public Closure $callback)
+    public function __construct(public int $length, public Closure|null $callback = null)
     {
         $this->index = new Index([
             'iteration' => 1,
@@ -54,7 +54,13 @@ class Loop
     {
         $returns = [];
         for ($index = 0; $index < $this->length; $index++) {
-            $returns[] = $this->callback->call($this, clone $this->index, $this);
+
+            if ($this->callback === null) {
+                $returns[] = null;
+            } else {
+                $returns[] = $this->callback->call($this, clone $this->index, $this);
+            }
+
             $this->increment();
 
             if (!$this->run) {
