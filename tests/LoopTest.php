@@ -1,5 +1,6 @@
 <?php
 
+use IsaEken\Loops\Index;
 use IsaEken\Loops\Loop;
 use function PHPUnit\Framework\assertCount;
 use function PHPUnit\Framework\assertEquals;
@@ -65,4 +66,20 @@ it('random is correct', function () {
 
     $count = count(loop_random(fn() => '', 5, 10));
     assertTrue($count >= 5 && $count <= 10);
+});
+
+it('run index is correctly', function () {
+    $index = new Index([
+        'iteration' => 1,
+    ]);
+    assertEquals(1, $index->iteration);
+
+    $index->remaining = 2;
+    assertEquals(2, $index->getAttribute('remaining'));
+
+    $index->setAttribute('first', true);
+    assertEquals(true, $index->first);
+
+    $index->fill(['odd' => true]);
+    assertEquals(true, $index->odd);
 });
