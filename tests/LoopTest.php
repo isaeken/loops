@@ -22,6 +22,13 @@ it('loop is breakable', function () {
     });
 
     assertCount(1, $loop->run());
+
+    $loop = new Loop(2);
+    $loop->callback = function (Index $index) use ($loop) {
+        $loop->break();
+    };
+
+    assertCount(1, $loop->run());
 });
 
 it('loop incrementing is valid', function () {
