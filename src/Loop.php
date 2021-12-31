@@ -6,10 +6,7 @@ use Closure;
 
 class Loop
 {
-    /**
-     * @var object
-     */
-    private object $loop;
+    private Index $index;
 
     /**
      * @var bool
@@ -20,21 +17,18 @@ class Loop
      * @param int $length
      * @param Closure $callback
      */
-    public function __construct(
-        public int     $length,
-        public Closure $callback,
-    )
+    public function __construct(public int $length, public Closure $callback)
     {
-        $this->loop = (object)[
-            'iteration' => 0,
+        $this->index = new Index([
+            'iteration' => 1,
             'index' => 0,
-            'remaining' => $this->length - 1 ?? null,
+            'remaining' => $this->length - 1 ?? 0,
             'count' => $this->length,
             'first' => true,
-            'last' => $this->length == 1,
-            'odd' => false,
+            'last' => $this->length === 1,
             'even' => true,
-        ];
+            'odd' => false,
+        ]);
     }
 
     /**
@@ -42,13 +36,13 @@ class Loop
      */
     public function increment(): void
     {
-        $this->loop->iteration = $this->loop->iteration + 1;
-        $this->loop->index = $this->loop->iteration;
-        $this->loop->first = $this->loop->iteration == 0;
-        $this->loop->last = $this->loop->iteration == $this->loop->count - 1;
-        $this->loop->odd = !$this->loop->odd;
-        $this->loop->even = !$this->loop->even;
-        $this->loop->remaining = $this->loop->remaining - 1;
+        $this->index->iteration += 1;
+        $this->index->index += 1;
+        $this->index->remaining -= 1;
+        $this->index->first = $this->index->index === 0;
+        $this->index->last = $this->index->iteration === $this->index->count;
+        $this->index->even = $this->index->index % 2 == 0;
+        $this->index->odd = !$this->index->even;
     }
 
     /**
@@ -60,7 +54,7 @@ class Loop
     {
         $returns = [];
         for ($index = 0; $index < $this->length; $index++) {
-            $returns[] = $this->callback->call($this, clone $this->loop, $this);
+            $returns[] = $this->callback->call($this, clone $this->index, $this);
             $this->increment();
 
             if (!$this->run) {

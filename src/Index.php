@@ -16,9 +16,9 @@ class Index
 
     public bool $last;
 
-    public bool $odd;
-
     public bool $even;
+
+    public bool $odd;
 
     public function setAttribute(string $name, mixed $value): void
     {

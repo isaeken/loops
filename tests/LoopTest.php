@@ -25,34 +25,44 @@ it('loop is breakable', function () {
 });
 
 it('loop incrementing is valid', function () {
-    $loop = new Loop(2, function ($loop) {
+    $loop = new Loop(3, function ($loop) {
         return $loop;
     });
 
-    $return = [
-        (object)[
-            'iteration' => 0,
+    $returns = [
+        new Index([
+            'iteration' => 1,
             'index' => 0,
-            'remaining' => 1,
-            'count' => 2,
+            'remaining' => 2,
+            'count' => 3,
             'first' => true,
             'last' => false,
-            'odd' => false,
             'even' => true,
-        ],
-        (object)[
-            'iteration' => 1,
+            'odd' => false,
+        ]),
+        new Index([
+            'iteration' => 2,
             'index' => 1,
+            'remaining' => 1,
+            'count' => 3,
+            'first' => false,
+            'last' => false,
+            'even' => false,
+            'odd' => true,
+        ]),
+        new Index([
+            'iteration' => 3,
+            'index' => 2,
             'remaining' => 0,
-            'count' => 2,
+            'count' => 3,
             'first' => false,
             'last' => true,
-            'odd' => true,
-            'even' => false,
-        ],
+            'even' => true,
+            'odd' => false,
+        ]),
     ];
 
-    assertEquals($return, $loop->run());
+    assertEquals($returns, $loop->run());
 });
 
 it('run helpers', function () {
