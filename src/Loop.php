@@ -80,6 +80,7 @@ class Loop
 
     /**
      * Break loop.
+     * @deprecated Renamed to break()
      */
     public function stop(): void
     {
