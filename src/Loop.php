@@ -3,6 +3,7 @@
 namespace IsaEken\Loops;
 
 use Closure;
+use IsaEken\Loops\Contracts\LoopCallback;
 
 class Loop
 {
@@ -22,9 +23,9 @@ class Loop
 
     /**
      * @param int $length Count of loop indexes.
-     * @param Closure|null $callback Closure to be called every loop.
+     * @param LoopCallback|Closure|null $callback Closure to be called every loop.
      */
-    public function __construct(public int $length, public Closure|null $callback = null)
+    public function __construct(public int $length, public LoopCallback|Closure|null $callback = null)
     {
         $this->index = new Index([
             'iteration' => 1,
@@ -64,6 +65,8 @@ class Loop
 
             if ($this->callback === null) {
                 $returns[] = null;
+            } elseif ($this->callback instanceof LoopCallback) {
+                $returns[] = call_user_func($this->callback, clone $this->index, $this);
             } else {
                 $returns[] = $this->callback->call($this, clone $this->index, $this);
             }

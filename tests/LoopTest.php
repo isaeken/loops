@@ -1,5 +1,6 @@
 <?php
 
+use IsaEken\Loops\Contracts\LoopCallback;
 use IsaEken\Loops\Index;
 use IsaEken\Loops\Loop;
 use function PHPUnit\Framework\assertCount;
@@ -99,4 +100,16 @@ it('run index is correctly', function () {
 
     $index->fill(['odd' => true]);
     assertEquals(true, $index->odd);
+});
+
+it('loop callback is working', function () {
+    $callback = new class implements LoopCallback {
+        public function __invoke(Index $index, Loop $loop = null): int
+        {
+            return $index->index;
+        }
+    };
+
+    $loop = new Loop(2, $callback);
+    assertEquals([0, 1], $loop->run());
 });
