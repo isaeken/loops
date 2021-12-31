@@ -9,24 +9,24 @@ use function PHPUnit\Framework\assertLessThanOrEqual;
 use function PHPUnit\Framework\assertTrue;
 
 it('loop is working', function () {
-    $loop = new Loop(2, function ($loop) {
-        return $loop->index;
+    $loop = new Loop(2, function (Index $index) {
+        return $index->index;
     });
 
     assertCount(2, $loop->run());
 });
 
 it('loop is breakable', function () {
-    $loop = new Loop(2, function ($loop, $instance) {
-        $instance->break();
+    $loop = new Loop(2, function (Index $index, Loop $loop) {
+        $loop->break();
     });
 
     assertCount(1, $loop->run());
 });
 
 it('loop incrementing is valid', function () {
-    $loop = new Loop(3, function ($loop) {
-        return $loop;
+    $loop = new Loop(3, function (Index $index) {
+        return $index;
     });
 
     $returns = [
