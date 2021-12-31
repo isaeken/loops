@@ -2,12 +2,12 @@
 
 use IsaEken\Loops\Loop;
 
-if (! function_exists('loop')) {
+if (!function_exists('loop')) {
     /**
      * Run the loop instance.
      *
-     * @param  int  $length
-     * @param  Closure  $callback
+     * @param int $length
+     * @param Closure $callback
      *
      * @return array
      */
@@ -17,13 +17,13 @@ if (! function_exists('loop')) {
     }
 }
 
-if (! function_exists('loop_random')) {
+if (!function_exists('loop_random')) {
     /**
      * Call the loop function random times.
      *
-     * @param  Closure  $callback
-     * @param  int|null  $min
-     * @param  int|null  $max
+     * @param Closure $callback
+     * @param int|null $min
+     * @param int|null $max
      *
      * @return array
      */

@@ -17,14 +17,15 @@ class Loop
     private bool $run = true;
 
     /**
-     * @param  int  $length
-     * @param  Closure  $callback
+     * @param int $length
+     * @param Closure $callback
      */
     public function __construct(
-        public int $length,
+        public int     $length,
         public Closure $callback,
-    ) {
-        $this->loop = (object) [
+    )
+    {
+        $this->loop = (object)[
             'iteration' => 0,
             'index' => 0,
             'remaining' => $this->length - 1 ?? null,
@@ -45,8 +46,8 @@ class Loop
         $this->loop->index = $this->loop->iteration;
         $this->loop->first = $this->loop->iteration == 0;
         $this->loop->last = $this->loop->iteration == $this->loop->count - 1;
-        $this->loop->odd = ! $this->loop->odd;
-        $this->loop->even = ! $this->loop->even;
+        $this->loop->odd = !$this->loop->odd;
+        $this->loop->even = !$this->loop->even;
         $this->loop->remaining = $this->loop->remaining - 1;
     }
 
@@ -62,7 +63,7 @@ class Loop
             $returns[] = $this->callback->call($this, clone $this->loop, $this);
             $this->increment();
 
-            if (! $this->run) {
+            if (!$this->run) {
                 break;
             }
         }

@@ -29,7 +29,7 @@ it('loop incrementing is valid', function () {
     });
 
     $return = [
-        (object) [
+        (object)[
             'iteration' => 0,
             'index' => 0,
             'remaining' => 1,
@@ -39,7 +39,7 @@ it('loop incrementing is valid', function () {
             'odd' => false,
             'even' => true,
         ],
-        (object) [
+        (object)[
             'iteration' => 1,
             'index' => 1,
             'remaining' => 0,
@@ -55,14 +55,14 @@ it('loop incrementing is valid', function () {
 });
 
 it('run helpers', function () {
-    assertCount(2, loop(2, fn () => ''));
-    assertGreaterThanOrEqual(0, count(loop_random(fn () => '')));
+    assertCount(2, loop(2, fn() => ''));
+    assertGreaterThanOrEqual(0, count(loop_random(fn() => '')));
 });
 
 it('random is correct', function () {
-    assertGreaterThanOrEqual(10, count(loop_random(fn () => '', 10)));
-    assertLessThanOrEqual(10, count(loop_random(fn () => '', null, 10)));
+    assertGreaterThanOrEqual(10, count(loop_random(fn() => '', 10)));
+    assertLessThanOrEqual(10, count(loop_random(fn() => '', null, 10)));
 
-    $count = count(loop_random(fn () => '', 5, 10));
+    $count = count(loop_random(fn() => '', 5, 10));
     assertTrue($count >= 5 && $count <= 10);
 });
