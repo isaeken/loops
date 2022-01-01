@@ -18,29 +18,43 @@ composer require isaeken/loops
 ### Basic Usage
 
 ````php
-loop(5, function ($loop, $instance) {
-    return $loop->odd;
+loop(5, function (\IsaEken\Loops\Index $index) {
+    return $index->odd;
 }); // [false, true, false, true, false]
 ````
+
+### Using with class method
+
+```php
+$callback = new class implements \IsaEken\Loops\Contracts\LoopCallback {
+    public function __invoke(Index $index, Loop $loop = null): int
+    {
+        return $index->index;
+    }
+};
+
+$loop = new Loop(2, $callback);
+$loop->run(); // [0, 1]
+```
 
 ### Get current loop
 
 ````php
-loop(2 ,function ($loop, $instance) {
+loop(2 ,function (\IsaEken\Loops\Index $index, \IsaEken\Loops\Loop $loop) {
     return [
-        'iteration' => $loop->iteration,
-        'index'     => $loop->index,
-        'remaining' => $loop->remaining,
-        'count'     => $loop->count,
-        'first'     => $loop->first,
-        'last'      => $loop->last,
-        'odd'       => $loop->odd,
-        'even'      => $loop->even,
+        'iteration' => $index->iteration,
+        'index'     => $index->index,
+        'remaining' => $index->remaining,
+        'count'     => $index->count,
+        'first'     => $index->first,
+        'last'      => $index->last,
+        'odd'       => $index->odd,
+        'even'      => $index->even,
     ];
 });
 // [
 //  [
-//    'iteration' => 0,
+//    'iteration' => 1,
 //    'index' => 0,
 //    'remaining' => 1,
 //    'count' => 2,
@@ -50,7 +64,7 @@ loop(2 ,function ($loop, $instance) {
 //    'even' => true,
 //  ],
 //  [
-//    'iteration' => 1,
+//    'iteration' => 2,
 //    'index' => 1,
 //    'remaining' => 0,
 //    'count' => 2,
@@ -65,29 +79,37 @@ loop(2 ,function ($loop, $instance) {
 ### Break the loop
 
 ````php
-loop(3, function ($loop, $instance) {
-    if ($loop->index > 1) {
-        $instance->stop();
+loop(3, function (\IsaEken\Loops\Index $index, \IsaEken\Loops\Loop $loop) {
+    if ($index->index > 1) {
+        $loop->break();
     }
     
-    return $loop->index;
+    return $index->index;
 }); // [0, 1]
 ````
 
 ### Loop random times
 
 ````php
-loop_random(function ($loop, $instance) {
-    return $loop->index;
+loop_random(function (\IsaEken\Loops\Index $index, \IsaEken\Loops\Loop $loop) {
+    return $index->index;
 }); // executed random times.
 
 $min = 5;
 $max = 10;
 
-loop_random(function ($loop, $instance) {
-    return $loop->index;
+loop_random(function (\IsaEken\Loops\Index $index, \IsaEken\Loops\Loop $loop) {
+    return $index->index;
 }, $min, $max);
 ````
+
+### Loop random with seed
+
+```php
+loop_random(function (\IsaEken\Loops\Index $index) {
+    return $index->even;
+}, seed: 123456789);
+```
 
 ## Changelog
 
