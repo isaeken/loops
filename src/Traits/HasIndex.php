@@ -9,7 +9,7 @@ trait HasIndex
     /**
      * The index model of current loop.
      *
-     * @var Index|null $index
+     * @var Index|null
      */
     private Index|null $index = null;
 
@@ -59,7 +59,7 @@ trait HasIndex
             $this->index->first = $this->index->index === 0;
             $this->index->last = $this->index->iteration === $this->index->count;
             $this->index->even = $this->index->index % 2 == 0;
-            $this->index->odd = !$this->index->even;
+            $this->index->odd = ! $this->index->even;
         }
     }
 }

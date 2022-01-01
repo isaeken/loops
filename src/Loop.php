@@ -64,7 +64,7 @@ class Loop implements Stringable, Loopable
 
             $this->increment();
 
-            if (!$this->run) {
+            if (! $this->run) {
                 break;
             }
         }
@@ -116,7 +116,7 @@ class Loop implements Stringable, Loopable
      */
     public function toArray(): array
     {
-        if (!$this->worked) {
+        if (! $this->worked) {
             throw new NotWorkedException();
         }
 
