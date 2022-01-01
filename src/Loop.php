@@ -118,9 +118,7 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
     }
 
     /**
-     * Get the instance as an array.
-     *
-     * @return array
+     * @inheritDoc
      */
     public function toArray(): array
     {
@@ -128,9 +126,7 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
     }
 
     /**
-     * Get the instance as a json.
-     *
-     * @return string
+     * @inheritDoc
      */
     public function toJson(): string
     {
@@ -138,9 +134,7 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
     }
 
     /**
-     * Get the instance as a string.
-     *
-     * @return string
+     * @inheritDoc
      */
     public function __toString()
     {
