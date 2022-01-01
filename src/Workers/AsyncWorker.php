@@ -11,6 +11,7 @@ use IsaEken\Loops\Contracts\Looper;
 use IsaEken\Loops\Contracts\Workable;
 use IsaEken\Loops\Exceptions\NotWorkedException;
 use IsaEken\Loops\Index;
+use Opis\Closure\SerializableClosure;
 use Spatie\Async\Pool;
 use Stringable;
 
@@ -83,6 +84,8 @@ class AsyncWorker implements Workable, Breakable, Arrayable, Jsonable, Stringabl
                     $result = null;
                 } elseif ($callback instanceof LoopCallback) {
                     $result = call_user_func($callback, clone $this->getIndex(), $this->getLooper());
+                } elseif ($callback instanceof SerializableClosure) {
+                    $result = $callback->getClosure()->call($this->getLooper(), clone $this->getIndex(), $this->getLooper());
                 } else {
                     $result = $callback->call($this->getLooper(), clone $this->getIndex(), $this->getLooper());
                 }
