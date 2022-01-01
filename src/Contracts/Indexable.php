@@ -4,7 +4,7 @@ namespace IsaEken\Loops\Contracts;
 
 use IsaEken\Loops\Index;
 
-interface Loopable
+interface Indexable
 {
     /**
      * Get the index.
@@ -20,21 +20,6 @@ interface Loopable
      * @return void
      */
     public function setIndex(Index|array $index): void;
-
-    /**
-     * Get the loop length.
-     *
-     * @return int
-     */
-    public function getLength(): int;
-
-    /**
-     * Set the loop length.
-     *
-     * @param int $length
-     * @return void
-     */
-    public function setLength(int $length): void;
 
     /**
      * Increment the loop.

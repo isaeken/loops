@@ -3,85 +3,46 @@
 namespace IsaEken\Loops;
 
 use Closure;
-use IsaEken\Loops\Contracts\Loopable;
+use IsaEken\Loops\Contracts\Arrayable;
+use IsaEken\Loops\Contracts\Jsonable;
 use IsaEken\Loops\Contracts\LoopCallback;
-use IsaEken\Loops\Exceptions\NotWorkedException;
-use IsaEken\Loops\Traits\HasIndex;
+use IsaEken\Loops\Contracts\Looper;
+use IsaEken\Loops\Contracts\Workable;
+use IsaEken\Loops\Workers\DefaultWorker;
 use Stringable;
 
-class Loop implements Stringable, Loopable
+class Loop implements Looper, Arrayable, Jsonable, Stringable
 {
-    use HasIndex;
+    /**
+     * The Worker instance.
+     *
+     * @var Workable|null
+     */
+    private Workable|null $worker = null;
 
     /**
-     * To check if this variable loop is working.
-     *
-     * @var bool
+     * @var int $length
      */
-    private bool $run = true;
+    private int $length = 0;
 
     /**
-     * To check the loop is worked correctly.
-     *
-     * @var bool
+     * @var LoopCallback|Closure|null
      */
-    private bool $worked = false;
-
-    /**
-     * Loop last results for serialization.
-     *
-     * @var array
-     */
-    private array $results = [];
+    private LoopCallback|Closure|null $callback = null;
 
     /**
      * @param int $length Count of loop indexes.
      * @param LoopCallback|Closure|null $callback Closure to be called every loop.
      */
-    public function __construct(public int $length, public LoopCallback|Closure|null $callback = null)
+    public function __construct(int $length, LoopCallback|Closure|null $callback = null)
     {
-        // ...
-    }
+        $this->setLength($length);
+        $this->setCallback($callback);
 
-    /**
-     * Run the loop.
-     *
-     * @return array
-     */
-    public function run(): array
-    {
-        $this->worked = false;
-        $this->results = [];
-
-        for ($index = 0; $index < $this->length; $index++) {
-            if ($this->callback === null) {
-                $this->results[] = null;
-            } elseif ($this->callback instanceof LoopCallback) {
-                $this->results[] = call_user_func($this->callback, clone $this->getIndex(), $this);
-            } else {
-                $this->results[] = $this->callback->call($this, clone $this->getIndex(), $this);
-            }
-
-            $this->increment();
-
-            if (!$this->run) {
-                break;
-            }
+        if ($this->worker === null) {
+            $this->worker = new DefaultWorker;
+            $this->worker->setLooper($this);
         }
-
-        $this->worked = true;
-
-        return $this->results;
-    }
-
-    /**
-     * Break loop after current closure.
-     *
-     * @return void
-     */
-    public function break(): void
-    {
-        $this->run = false;
     }
 
     /**
@@ -101,27 +62,63 @@ class Loop implements Stringable, Loopable
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getCallback(): LoopCallback|Closure|null
+    {
+        return $this->callback;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setCallback(Closure|LoopCallback|null $callback = null): void
+    {
+        $this->callback = $callback;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function run(): void
+    {
+        $this->worker->work($this->callback);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function results(): array
+    {
+        return $this->worker->results();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function break(): void
+    {
+        $this->worker->break();
+    }
+
+    /**
      * Get the instance as an array.
      *
      * @return array
      */
     public function toArray(): array
     {
-        if (!$this->worked) {
-            throw new NotWorkedException();
-        }
-
-        return $this->results;
+        return $this->worker->toArray();
     }
 
     /**
      * Get the instance as a json.
      *
-     * @return false|string
+     * @return string
      */
-    public function toJson(): false|string
+    public function toJson(): string
     {
-        return json_encode($this->toArray());
+        return $this->worker->toJson();
     }
 
     /**
@@ -131,6 +128,6 @@ class Loop implements Stringable, Loopable
      */
     public function __toString()
     {
-        return $this->toJson();
+        return $this->worker->__toString();
     }
 }

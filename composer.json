@@ -25,7 +25,8 @@
         "spatie/async": "^1.5"
     },
     "require-dev": {
-        "pestphp/pest": "^1.20"
+        "pestphp/pest": "^1.20",
+        "symfony/var-dumper": "^6.0"
     },
     "autoload": {
         "psr-4": {
