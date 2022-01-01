@@ -21,7 +21,8 @@
         }
     ],
     "require": {
-        "php": "^8.0"
+        "php": "^8.0",
+        "spatie/async": "^1.5"
     },
     "require-dev": {
         "pestphp/pest": "^1.20"

@@ -3,18 +3,15 @@
 namespace IsaEken\Loops;
 
 use Closure;
+use IsaEken\Loops\Contracts\Loopable;
 use IsaEken\Loops\Contracts\LoopCallback;
 use IsaEken\Loops\Exceptions\NotWorkedException;
+use IsaEken\Loops\Traits\HasIndex;
 use Stringable;
 
-class Loop implements Stringable
+class Loop implements Stringable, Loopable
 {
-    /**
-     * The index model of current loop.
-     *
-     * @var Index
-     */
-    private Index $index;
+    use HasIndex;
 
     /**
      * To check if this variable loop is working.
@@ -43,30 +40,7 @@ class Loop implements Stringable
      */
     public function __construct(public int $length, public LoopCallback|Closure|null $callback = null)
     {
-        $this->index = new Index([
-            'iteration' => 1,
-            'index' => 0,
-            'remaining' => $this->length - 1 ?? 0,
-            'count' => $this->length,
-            'first' => true,
-            'last' => $this->length === 1,
-            'even' => true,
-            'odd' => false,
-        ]);
-    }
-
-    /**
-     * Increment the loop.
-     */
-    public function increment(): void
-    {
-        $this->index->iteration += 1;
-        $this->index->index += 1;
-        $this->index->remaining -= 1;
-        $this->index->first = $this->index->index === 0;
-        $this->index->last = $this->index->iteration === $this->index->count;
-        $this->index->even = $this->index->index % 2 == 0;
-        $this->index->odd = ! $this->index->even;
+        // ...
     }
 
     /**
@@ -83,14 +57,14 @@ class Loop implements Stringable
             if ($this->callback === null) {
                 $this->results[] = null;
             } elseif ($this->callback instanceof LoopCallback) {
-                $this->results[] = call_user_func($this->callback, clone $this->index, $this);
+                $this->results[] = call_user_func($this->callback, clone $this->getIndex(), $this);
             } else {
-                $this->results[] = $this->callback->call($this, clone $this->index, $this);
+                $this->results[] = $this->callback->call($this, clone $this->getIndex(), $this);
             }
 
             $this->increment();
 
-            if (! $this->run) {
+            if (!$this->run) {
                 break;
             }
         }
@@ -120,13 +94,29 @@ class Loop implements Stringable
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getLength(): int
+    {
+        return $this->length;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setLength(int $length): int
+    {
+        $this->length = $length;
+    }
+
+    /**
      * Get the instance as an array.
      *
      * @return array
      */
     public function toArray(): array
     {
-        if (! $this->worked) {
+        if (!$this->worked) {
             throw new NotWorkedException();
         }
 
