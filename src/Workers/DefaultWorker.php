@@ -97,8 +97,8 @@ class DefaultWorker implements Workable
      */
     public function results(): array
     {
-        if (!$this->worked) {
-            throw new NotWorkedException;
+        if (! $this->worked) {
+            throw new NotWorkedException();
         }
 
         return $this->results;
