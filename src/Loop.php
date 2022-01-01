@@ -4,8 +4,10 @@ namespace IsaEken\Loops;
 
 use Closure;
 use IsaEken\Loops\Contracts\LoopCallback;
+use IsaEken\Loops\Exceptions\NotWorkedException;
+use Stringable;
 
-class Loop
+class Loop implements Stringable
 {
     /**
      * The index model of current loop.
@@ -20,6 +22,20 @@ class Loop
      * @var bool
      */
     private bool $run = true;
+
+    /**
+     * To check the loop is worked correctly.
+     *
+     * @var bool $worked
+     */
+    private bool $worked = false;
+
+    /**
+     * Loop last results for serialization.
+     *
+     * @var array $results
+     */
+    private array $results = [];
 
     /**
      * @param int $length Count of loop indexes.
@@ -50,7 +66,7 @@ class Loop
         $this->index->first = $this->index->index === 0;
         $this->index->last = $this->index->iteration === $this->index->count;
         $this->index->even = $this->index->index % 2 == 0;
-        $this->index->odd = ! $this->index->even;
+        $this->index->odd = !$this->index->even;
     }
 
     /**
@@ -60,24 +76,27 @@ class Loop
      */
     public function run(): array
     {
-        $returns = [];
+        $this->worked = false;
+        $this->results = [];
+
         for ($index = 0; $index < $this->length; $index++) {
             if ($this->callback === null) {
-                $returns[] = null;
+                $this->results[] = null;
             } elseif ($this->callback instanceof LoopCallback) {
-                $returns[] = call_user_func($this->callback, clone $this->index, $this);
+                $this->results[] = call_user_func($this->callback, clone $this->index, $this);
             } else {
-                $returns[] = $this->callback->call($this, clone $this->index, $this);
+                $this->results[] = $this->callback->call($this, clone $this->index, $this);
             }
 
             $this->increment();
 
-            if (! $this->run) {
+            if (!$this->run) {
                 break;
             }
         }
 
-        return $returns;
+        $this->worked = true;
+        return $this->results;
     }
 
     /**
@@ -97,5 +116,39 @@ class Loop
     public function break(): void
     {
         $this->run = false;
+    }
+
+    /**
+     * Get the instance as an array.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        if (!$this->worked) {
+            throw new NotWorkedException;
+        }
+
+        return $this->results;
+    }
+
+    /**
+     * Get the instance as a json.
+     *
+     * @return false|string
+     */
+    public function toJson(): false|string
+    {
+        return json_encode($this->toArray());
+    }
+
+    /**
+     * Get the instance as a string.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toJson();
     }
 }
