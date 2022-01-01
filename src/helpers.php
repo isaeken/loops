@@ -25,17 +25,22 @@ if (!function_exists('loop_random')) {
      * @param LoopCallback|Closure $callback
      * @param int|null $min
      * @param int|null $max
-     *
+     * @param int|null $seed
      * @return array
      */
-    function loop_random(LoopCallback|Closure $callback, int|null $min = null, int|null $max = null): array
+    function loop_random(LoopCallback|Closure $callback, int|null $min = null, int|null $max = null, int|null $seed = null): array
     {
-        if ($min === null && $max === null) {
+        if ($seed === null) {
+            $seed = time();
+        }
+
+        srand($seed);
+
+        if ($min === null) {
             $min = 0;
-            $max = rand(0, 99);
-        } elseif ($min === null) {
-            $min = 0;
-        } elseif ($max === null) {
+        }
+
+        if ($max === null) {
             $max = rand($min, $min + 99);
         }
 

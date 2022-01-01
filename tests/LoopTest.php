@@ -84,6 +84,9 @@ it('random is correct', function () {
 
     $count = count(loop_random(fn() => '', 5, 10));
     assertTrue($count >= 5 && $count <= 10);
+
+    $seed = 123456789;
+    assertEquals(4, count(loop_random(fn() => '', seed: $seed)));
 });
 
 it('run index is correctly', function () {
