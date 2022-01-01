@@ -74,19 +74,19 @@ it('loop incrementing is valid', function () {
 });
 
 it('run helpers', function () {
-    assertCount(2, loop(2, fn() => ''));
-    assertGreaterThanOrEqual(0, count(loop_random(fn() => '')));
+    assertCount(2, loop(2, fn () => ''));
+    assertGreaterThanOrEqual(0, count(loop_random(fn () => '')));
 });
 
 it('random is correct', function () {
-    assertGreaterThanOrEqual(10, count(loop_random(fn() => '', 10)));
-    assertLessThanOrEqual(10, count(loop_random(fn() => '', null, 10)));
+    assertGreaterThanOrEqual(10, count(loop_random(fn () => '', 10)));
+    assertLessThanOrEqual(10, count(loop_random(fn () => '', null, 10)));
 
-    $count = count(loop_random(fn() => '', 5, 10));
+    $count = count(loop_random(fn () => '', 5, 10));
     assertTrue($count >= 5 && $count <= 10);
 
     $seed = 123456789;
-    assertEquals(4, count(loop_random(fn() => '', seed: $seed)));
+    assertEquals(4, count(loop_random(fn () => '', seed: $seed)));
 });
 
 it('run index is correctly', function () {
@@ -136,7 +136,7 @@ it('can be convert to array, json or string', function () {
         "{\"iteration\":2,\"index\":1,\"remaining\":0,\"count\":2,\"first\":false,\"last\":true,\"even\":false,\"odd\":true}",
     ], $loop);
 
-    $loop = new Loop(2, fn(Index $index) => $index->index);
+    $loop = new Loop(2, fn (Index $index) => $index->index);
     assertEquals([0, 1], $loop->run());
     assertEquals([0, 1], $loop->toArray());
     assertEquals("[0,1]", $loop->toJson());
