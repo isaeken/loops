@@ -9,7 +9,6 @@ use IsaEken\Loops\Contracts\Jsonable;
 use IsaEken\Loops\Contracts\LoopCallback;
 use IsaEken\Loops\Contracts\Looper;
 use IsaEken\Loops\Contracts\Workable;
-use IsaEken\Loops\Exceptions\AsyncIsNotSupportedException;
 use IsaEken\Loops\Exceptions\NotWorkedException;
 use IsaEken\Loops\Index;
 use Opis\Closure\SerializableClosure;
@@ -76,10 +75,6 @@ class AsyncWorker implements Workable, Breakable, Arrayable, Jsonable, Stringabl
      */
     public function work(Closure|LoopCallback|SerializableClosure|null $callback = null): Pool
     {
-        if (! Pool::isSupported()) {
-            throw new AsyncIsNotSupportedException();
-        }
-
         $pool = new Pool();
         $results = collect();
 

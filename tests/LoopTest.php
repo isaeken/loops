@@ -155,7 +155,7 @@ it('can be convert to array, json or string', function () {
     assertEquals("[0,1]", $loop->__toString());
 });
 
-if (Pool::isSupported()) {
+if (! Pool::isSupported()) {
     it('can async worker is running', function () {
         $array = loop(100, function (Index $index) {
             return $index->even;
