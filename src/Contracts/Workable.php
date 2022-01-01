@@ -10,9 +10,9 @@ interface Workable extends HasLooper, Indexable
      * Work the worker.
      *
      * @param LoopCallback|Closure|null $callback
-     * @return self
+     * @return mixed
      */
-    public function work(LoopCallback|Closure|null $callback = null): self;
+    public function work(LoopCallback|Closure|null $callback = null): mixed;
 
     /**
      * Get results from worker.

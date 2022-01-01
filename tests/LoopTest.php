@@ -151,3 +151,40 @@ it('can be convert to array, json or string', function () {
     assertEquals("[0,1]", $loop->toJson());
     assertEquals("[0,1]", $loop->__toString());
 });
+
+it('can async worker is running', function () {
+    $array = loop(100, function (Index $index) {
+        return $index->even;
+    });
+
+    $loop = async_loop(100, function (Index $index) {
+        usleep(100000);
+
+        return $index->even;
+    });
+
+    assertEquals($array, await($loop));
+});
+
+it('async worker is breakable', function () {
+    $loop = async_loop(100, function (Index $index, Loop $loop) {
+        if ($index->iteration == 50) {
+            $loop->break();
+        }
+
+        return $index->iteration;
+    });
+
+    assertCount(50, await($loop));
+});
+
+it('random async worker is correct', function () {
+    assertGreaterThanOrEqual(10, count(await(async_loop_random(fn () => '', 10))));
+    assertLessThanOrEqual(10, count(await(async_loop_random(fn () => '', max: 10))));
+
+    $count = count(await(async_loop_random(fn () => '', 5, 10)));
+    assertTrue($count >= 5 && $count <= 10);
+
+    $seed = 123456789;
+    assertEquals(4, count(await(async_loop_random(fn () => '', seed: $seed))));
+});
