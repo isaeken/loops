@@ -75,15 +75,6 @@ class Loop implements Stringable, Loopable
     }
 
     /**
-     * Break loop.
-     * @deprecated Renamed to break()
-     */
-    public function stop(): void
-    {
-        $this->run = false;
-    }
-
-    /**
      * Break loop after current closure.
      *
      * @return void
