@@ -5,7 +5,7 @@ namespace IsaEken\Loops\Contracts;
 interface Breakable
 {
     /**
-     * Break the worker.
+     * Break worker after current execution.
      *
      * @return void
      */
