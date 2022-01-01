@@ -26,14 +26,14 @@ class Loop implements Stringable
     /**
      * To check the loop is worked correctly.
      *
-     * @var bool $worked
+     * @var bool
      */
     private bool $worked = false;
 
     /**
      * Loop last results for serialization.
      *
-     * @var array $results
+     * @var array
      */
     private array $results = [];
 
@@ -66,7 +66,7 @@ class Loop implements Stringable
         $this->index->first = $this->index->index === 0;
         $this->index->last = $this->index->iteration === $this->index->count;
         $this->index->even = $this->index->index % 2 == 0;
-        $this->index->odd = !$this->index->even;
+        $this->index->odd = ! $this->index->even;
     }
 
     /**
@@ -90,12 +90,13 @@ class Loop implements Stringable
 
             $this->increment();
 
-            if (!$this->run) {
+            if (! $this->run) {
                 break;
             }
         }
 
         $this->worked = true;
+
         return $this->results;
     }
 
@@ -125,8 +126,8 @@ class Loop implements Stringable
      */
     public function toArray(): array
     {
-        if (!$this->worked) {
-            throw new NotWorkedException;
+        if (! $this->worked) {
+            throw new NotWorkedException();
         }
 
         return $this->results;
