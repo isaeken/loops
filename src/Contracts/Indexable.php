@@ -17,15 +17,15 @@ interface Indexable
      * Set the index.
      *
      * @param Index|array $index
-     * @return void
+     * @return self
      */
-    public function setIndex(Index|array $index): void;
+    public function setIndex(Index|array $index): self;
 
     /**
      * Increment the loop.
      *
      * @param int $count
-     * @return void
+     * @return self
      */
-    public function increment(int $count = 1): void;
+    public function increment(int $count = 1): self;
 }

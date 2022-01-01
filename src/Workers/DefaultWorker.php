@@ -61,15 +61,17 @@ class DefaultWorker implements Workable, Breakable, Arrayable, Jsonable, Stringa
     /**
      * @inheritDoc
      */
-    public function setLooper(Looper $looper): void
+    public function setLooper(Looper $looper): self
     {
         $this->looper = $looper;
+
+        return $this;
     }
 
     /**
      * @inheritDoc
      */
-    public function work(Closure|LoopCallback|null $callback = null): void
+    public function work(Closure|LoopCallback|null $callback = null): self
     {
         $this->worked = false;
         $this->results = [];
@@ -91,14 +93,18 @@ class DefaultWorker implements Workable, Breakable, Arrayable, Jsonable, Stringa
         }
 
         $this->worked = true;
+
+        return $this;
     }
 
     /**
      * @inheritDoc
      */
-    public function break(): void
+    public function break(): self
     {
         $this->breaked = true;
+
+        return $this;
     }
 
     /**
@@ -137,7 +143,7 @@ class DefaultWorker implements Workable, Breakable, Arrayable, Jsonable, Stringa
     /**
      * @inheritDoc
      */
-    public function setIndex(Index|array $index): void
+    public function setIndex(Index|array $index): self
     {
         $attributes = $index instanceof Index ? $index->toArray() : $index;
         if ($this->index instanceof Index) {
@@ -145,12 +151,14 @@ class DefaultWorker implements Workable, Breakable, Arrayable, Jsonable, Stringa
         } else {
             $this->index = new Index($attributes);
         }
+
+        return $this;
     }
 
     /**
      * @inheritDoc
      */
-    public function increment(int $count = 1): void
+    public function increment(int $count = 1): self
     {
         for ($i = $count; $i > 0; $i--) {
             $this->index->iteration += 1;
@@ -161,6 +169,8 @@ class DefaultWorker implements Workable, Breakable, Arrayable, Jsonable, Stringa
             $this->index->even = $this->index->index % 2 == 0;
             $this->index->odd = ! $this->index->even;
         }
+
+        return $this;
     }
 
     /**

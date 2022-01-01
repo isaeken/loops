@@ -7,7 +7,7 @@ interface Breakable
     /**
      * Break worker after current execution.
      *
-     * @return void
+     * @return self
      */
-    public function break(): void;
+    public function break(): self;
 }

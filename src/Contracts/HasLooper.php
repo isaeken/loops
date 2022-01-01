@@ -15,7 +15,7 @@ interface HasLooper
      * Set the looper instance.
      *
      * @param Looper $looper
-     * @return void
+     * @return self
      */
-    public function setLooper(Looper $looper): void;
+    public function setLooper(Looper $looper): self;
 }

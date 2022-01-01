@@ -55,9 +55,10 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
     /**
      * @inheritDoc
      */
-    public function setLength(int $length): void
+    public function setLength(int $length): self
     {
         $this->length = $length;
+        return $this;
     }
 
     /**
@@ -71,9 +72,10 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
     /**
      * @inheritDoc
      */
-    public function setCallback(Closure|LoopCallback|null $callback = null): void
+    public function setCallback(Closure|LoopCallback|null $callback = null): self
     {
         $this->callback = $callback;
+        return $this;
     }
 
     /**
@@ -87,18 +89,20 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
     /**
      * @inheritDoc
      */
-    public function setWorker(Workable $worker): void
+    public function setWorker(Workable $worker): self
     {
         $this->worker = $worker;
         $this->worker->setLooper($this);
+        return $this;
     }
 
     /**
      * @inheritDoc
      */
-    public function run(): void
+    public function run(): self
     {
         $this->worker->work($this->callback);
+        return $this;
     }
 
     /**
@@ -112,9 +116,10 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
     /**
      * @inheritDoc
      */
-    public function break(): void
+    public function break(): self
     {
         $this->worker->break();
+        return $this;
     }
 
     /**

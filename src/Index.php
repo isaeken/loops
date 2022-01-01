@@ -2,6 +2,8 @@
 
 namespace IsaEken\Loops;
 
+use IsaEken\Loops\Contracts\Arrayable;
+use IsaEken\Loops\Contracts\Jsonable;
 use Stringable;
 
 /**
@@ -14,7 +16,7 @@ use Stringable;
  * @property bool $even
  * @property bool $odd
  */
-class Index implements Stringable
+class Index implements Arrayable, Jsonable, Stringable
 {
     /**
      * Model attribute pool.
@@ -30,9 +32,11 @@ class Index implements Stringable
      * @param mixed $value
      * @return void
      */
-    public function setAttribute(string $name, mixed $value): void
+    public function setAttribute(string $name, mixed $value): self
     {
         $this->attributes[$name] = $value;
+
+        return $this;
     }
 
     /**
@@ -57,11 +61,13 @@ class Index implements Stringable
      * @param array $attributes
      * @return void
      */
-    public function fill(array $attributes): void
+    public function fill(array $attributes): self
     {
         foreach ($attributes as $key => $value) {
             $this->setAttribute($key, $value);
         }
+
+        return $this;
     }
 
     /**
@@ -85,9 +91,7 @@ class Index implements Stringable
     }
 
     /**
-     * Get the instance as an array.
-     *
-     * @return array
+     * @inheritDoc
      */
     public function toArray(): array
     {
@@ -95,19 +99,15 @@ class Index implements Stringable
     }
 
     /**
-     * Get the instance as a json.
-     *
-     * @return false|string
+     * @inheritDoc
      */
-    public function toJson(): false|string
+    public function toJson(): string
     {
         return json_encode($this->toArray());
     }
 
     /**
-     * Get the instance as a string.
-     *
-     * @return string
+     * @inheritDoc
      */
     public function __toString()
     {

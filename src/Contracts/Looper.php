@@ -4,7 +4,7 @@ namespace IsaEken\Loops\Contracts;
 
 use Closure;
 
-interface Looper
+interface Looper extends Breakable
 {
     /**
      * Get count of loop indexes.
@@ -17,17 +17,17 @@ interface Looper
      * Set loop count.
      *
      * @param int $length
-     * @return void
+     * @return self
      */
-    public function setLength(int $length): void;
+    public function setLength(int $length): self;
 
     /**
      * Set loop callback.
      *
      * @param LoopCallback|Closure|null $callback
-     * @return void
+     * @return self
      */
-    public function setCallback(LoopCallback|Closure|null $callback = null): void;
+    public function setCallback(LoopCallback|Closure|null $callback = null): self;
 
     /**
      * Get loop callback.
@@ -40,9 +40,9 @@ interface Looper
      * Set worker instance.
      *
      * @param Workable $worker
-     * @return void
+     * @return self
      */
-    public function setWorker(Workable $worker): void;
+    public function setWorker(Workable $worker): self;
 
     /**
      * Get worker instance.
@@ -54,9 +54,9 @@ interface Looper
     /**
      * Run the loop.
      *
-     * @return void
+     * @return self
      */
-    public function run(): void;
+    public function run(): self;
 
     /**
      * Get results of the executed loop.
@@ -64,11 +64,4 @@ interface Looper
      * @return array
      */
     public function results(): array;
-
-    /**
-     * Break loop after current worker loop.
-     *
-     * @return void
-     */
-    public function break(): void;
 }
