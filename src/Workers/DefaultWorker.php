@@ -36,6 +36,11 @@ class DefaultWorker implements Workable, Breakable, Arrayable, Jsonable, Stringa
      */
     private array $results = [];
 
+    /**
+     * Check the worker is breaked.
+     *
+     * @var bool
+     */
     private bool $breaked = false;
 
     /**
