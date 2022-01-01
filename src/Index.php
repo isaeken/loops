@@ -19,7 +19,7 @@ class Index implements Stringable
     /**
      * Model attribute pool.
      *
-     * @var array $attributes
+     * @var array
      */
     protected array $attributes = [];
 
@@ -44,7 +44,7 @@ class Index implements Stringable
      */
     public function getAttribute(string $name, mixed $default = null): mixed
     {
-        if (!array_key_exists($name, $this->attributes)) {
+        if (! array_key_exists($name, $this->attributes)) {
             return $default;
         }
 
