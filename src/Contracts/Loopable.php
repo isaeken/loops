@@ -32,9 +32,9 @@ interface Loopable
      * Set the loop length.
      *
      * @param int $length
-     * @return int
+     * @return void
      */
-    public function setLength(int $length): int;
+    public function setLength(int $length): void;
 
     /**
      * Increment the loop.

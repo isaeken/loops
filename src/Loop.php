@@ -104,7 +104,7 @@ class Loop implements Stringable, Loopable
     /**
      * @inheritDoc
      */
-    public function setLength(int $length): int
+    public function setLength(int $length): void
     {
         $this->length = $length;
     }
