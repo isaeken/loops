@@ -10,14 +10,14 @@ class Loop
     /**
      * The index model of current loop.
      *
-     * @var Index $index
+     * @var Index
      */
     private Index $index;
 
     /**
      * To check if this variable loop is working.
      *
-     * @var bool $run
+     * @var bool
      */
     private bool $run = true;
 
@@ -50,7 +50,7 @@ class Loop
         $this->index->first = $this->index->index === 0;
         $this->index->last = $this->index->iteration === $this->index->count;
         $this->index->even = $this->index->index % 2 == 0;
-        $this->index->odd = !$this->index->even;
+        $this->index->odd = ! $this->index->even;
     }
 
     /**
@@ -62,7 +62,6 @@ class Loop
     {
         $returns = [];
         for ($index = 0; $index < $this->length; $index++) {
-
             if ($this->callback === null) {
                 $returns[] = null;
             } elseif ($this->callback instanceof LoopCallback) {
@@ -73,7 +72,7 @@ class Loop
 
             $this->increment();
 
-            if (!$this->run) {
+            if (! $this->run) {
                 break;
             }
         }

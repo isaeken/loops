@@ -74,19 +74,19 @@ it('loop incrementing is valid', function () {
 });
 
 it('run helpers', function () {
-    assertCount(2, loop(2, fn() => ''));
-    assertGreaterThanOrEqual(0, count(loop_random(fn() => '')));
+    assertCount(2, loop(2, fn () => ''));
+    assertGreaterThanOrEqual(0, count(loop_random(fn () => '')));
 });
 
 it('random is correct', function () {
-    assertGreaterThanOrEqual(10, count(loop_random(fn() => '', 10)));
-    assertLessThanOrEqual(10, count(loop_random(fn() => '', null, 10)));
+    assertGreaterThanOrEqual(10, count(loop_random(fn () => '', 10)));
+    assertLessThanOrEqual(10, count(loop_random(fn () => '', null, 10)));
 
-    $count = count(loop_random(fn() => '', 5, 10));
+    $count = count(loop_random(fn () => '', 5, 10));
     assertTrue($count >= 5 && $count <= 10);
 
     $seed = 123456789;
-    assertEquals(4, count(loop_random(fn() => '', seed: $seed)));
+    assertEquals(4, count(loop_random(fn () => '', seed: $seed)));
 });
 
 it('run index is correctly', function () {
@@ -106,7 +106,7 @@ it('run index is correctly', function () {
 });
 
 it('loop callback is working', function () {
-    $callback = new class implements LoopCallback {
+    $callback = new class () implements LoopCallback {
         public function __invoke(Index $index, Loop $loop = null): int
         {
             return $index->index;

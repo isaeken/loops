@@ -27,7 +27,7 @@ class Index
 
     public function getAttribute(string $name, mixed $default = null): mixed
     {
-        if (!property_exists($this, $name)) {
+        if (! property_exists($this, $name)) {
             return $default;
         }
 
