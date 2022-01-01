@@ -9,6 +9,7 @@ use IsaEken\Loops\Contracts\LoopCallback;
 use IsaEken\Loops\Contracts\Looper;
 use IsaEken\Loops\Contracts\Workable;
 use IsaEken\Loops\Workers\DefaultWorker;
+use Opis\Closure\SerializableClosure;
 use Stringable;
 
 class Loop implements Looper, Arrayable, Jsonable, Stringable
@@ -26,15 +27,15 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
     private int $length = 0;
 
     /**
-     * @var LoopCallback|Closure|null
+     * @var LoopCallback|Closure|SerializableClosure|null
      */
-    private LoopCallback|Closure|null $callback = null;
+    private LoopCallback|Closure|SerializableClosure|null $callback = null;
 
     /**
      * @param int $length Count of loop indexes.
-     * @param LoopCallback|Closure|null $callback Closure to be called every loop.
+     * @param LoopCallback|Closure|SerializableClosure|null $callback Closure to be called every loop.
      */
-    public function __construct(int $length, LoopCallback|Closure|null $callback = null)
+    public function __construct(int $length, LoopCallback|Closure|SerializableClosure|null $callback = null)
     {
         $this->setLength($length);
         $this->setCallback($callback);
@@ -65,7 +66,7 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
     /**
      * @inheritDoc
      */
-    public function getCallback(): LoopCallback|Closure|null
+    public function getCallback(): LoopCallback|Closure|SerializableClosure|null
     {
         return $this->callback;
     }
@@ -73,7 +74,7 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
     /**
      * @inheritDoc
      */
-    public function setCallback(Closure|LoopCallback|null $callback = null): self
+    public function setCallback(Closure|LoopCallback|SerializableClosure|null $callback = null): self
     {
         $this->callback = $callback;
 

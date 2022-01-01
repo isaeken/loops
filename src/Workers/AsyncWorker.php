@@ -73,7 +73,7 @@ class AsyncWorker implements Workable, Breakable, Arrayable, Jsonable, Stringabl
     /**
      * @inheritDoc
      */
-    public function work(Closure|LoopCallback|null $callback = null): Pool
+    public function work(Closure|LoopCallback|SerializableClosure|null $callback = null): Pool
     {
         $pool = new Pool();
         $results = collect();

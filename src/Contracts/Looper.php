@@ -3,6 +3,7 @@
 namespace IsaEken\Loops\Contracts;
 
 use Closure;
+use Opis\Closure\SerializableClosure;
 
 interface Looper extends Breakable
 {
@@ -24,17 +25,17 @@ interface Looper extends Breakable
     /**
      * Set loop callback.
      *
-     * @param LoopCallback|Closure|null $callback
+     * @param LoopCallback|Closure|SerializableClosure|null $callback
      * @return self
      */
-    public function setCallback(LoopCallback|Closure|null $callback = null): self;
+    public function setCallback(LoopCallback|Closure|SerializableClosure|null $callback = null): self;
 
     /**
      * Get loop callback.
      *
-     * @return LoopCallback|Closure|null
+     * @return LoopCallback|Closure|SerializableClosure|null
      */
-    public function getCallback(): LoopCallback|Closure|null;
+    public function getCallback(): LoopCallback|Closure|SerializableClosure|null;
 
     /**
      * Set worker instance.

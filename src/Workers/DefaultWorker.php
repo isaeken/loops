@@ -11,6 +11,7 @@ use IsaEken\Loops\Contracts\Looper;
 use IsaEken\Loops\Contracts\Workable;
 use IsaEken\Loops\Exceptions\NotWorkedException;
 use IsaEken\Loops\Index;
+use Opis\Closure\SerializableClosure;
 use Stringable;
 
 class DefaultWorker implements Workable, Breakable, Arrayable, Jsonable, Stringable
@@ -71,7 +72,7 @@ class DefaultWorker implements Workable, Breakable, Arrayable, Jsonable, Stringa
     /**
      * @inheritDoc
      */
-    public function work(Closure|LoopCallback|null $callback = null): self
+    public function work(Closure|LoopCallback|SerializableClosure|null $callback = null): self
     {
         $this->worked = false;
         $this->results = [];
@@ -81,6 +82,8 @@ class DefaultWorker implements Workable, Breakable, Arrayable, Jsonable, Stringa
                 $this->results[] = null;
             } elseif ($callback instanceof LoopCallback) {
                 $this->results[] = call_user_func($callback, clone $this->getIndex(), $this->getLooper());
+            } elseif ($callback instanceof SerializableClosure) {
+                $this->results[] = $callback->getClosure()->call($this->getLooper(), clone $this->getIndex(), $this->getLooper());
             } else {
                 $this->results[] = $callback->call($this->getLooper(), clone $this->getIndex(), $this->getLooper());
             }
