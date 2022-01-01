@@ -106,9 +106,6 @@ class AsyncWorker implements Workable, Breakable, Arrayable, Jsonable, Stringabl
             })->then(function () use ($results) {
                 $this->results = $results->toArray();
                 $this->worked = true;
-            })->catch(function ($exception) {
-                var_dump($exception);
-                exit;
             });
         }
 
