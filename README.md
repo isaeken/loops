@@ -23,6 +23,18 @@ loop(5, function (\IsaEken\Loops\Index $index) {
 }); // [false, true, false, true, false]
 ````
 
+### Async Usage
+
+````php
+$loop = async_loop(5, function (\IsaEken\Loops\Index $index) {
+    return $index->even;
+});
+
+// ...
+
+await($loop); // [true, false, true, false, true]
+````
+
 ### Using with class method
 
 ```php
@@ -34,7 +46,8 @@ $callback = new class implements \IsaEken\Loops\Contracts\LoopCallback {
 };
 
 $loop = new Loop(2, $callback);
-$loop->run(); // [0, 1]
+$loop->run();
+$loop->results(); // [0, 1]
 ```
 
 ### Get current loop
