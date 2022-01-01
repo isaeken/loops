@@ -1,5 +1,7 @@
 <?php
 
+namespace IsaEken\Loops\Tests;
+
 use IsaEken\Loops\Contracts\LoopCallback;
 use IsaEken\Loops\Index;
 use IsaEken\Loops\Loop;
