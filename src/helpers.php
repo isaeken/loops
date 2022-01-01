@@ -8,16 +8,13 @@ if (! function_exists('loop')) {
      * Run the loop instance.
      *
      * @param int $length
-     * @param LoopCallback|Closure $callback
+     * @param LoopCallback|Closure|null $callback
      *
      * @return array
      */
-    function loop(int $length, LoopCallback|Closure $callback): array
+    function loop(int $length, LoopCallback|Closure|null $callback): array
     {
-        $loop = new Loop($length, $callback);
-        $loop->run();
-
-        return $loop->results();
+        return (new Loop($length, $callback))->run()->results();
     }
 }
 
