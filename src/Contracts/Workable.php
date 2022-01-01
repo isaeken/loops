@@ -3,9 +3,8 @@
 namespace IsaEken\Loops\Contracts;
 
 use Closure;
-use Stringable;
 
-interface Workable extends HasLooper, Indexable, Breakable, Arrayable, Jsonable, Stringable
+interface Workable extends HasLooper, Indexable
 {
     /**
      * Work the worker.

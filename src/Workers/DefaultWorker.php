@@ -3,13 +3,17 @@
 namespace IsaEken\Loops\Workers;
 
 use Closure;
+use IsaEken\Loops\Contracts\Arrayable;
+use IsaEken\Loops\Contracts\Breakable;
+use IsaEken\Loops\Contracts\Jsonable;
 use IsaEken\Loops\Contracts\LoopCallback;
 use IsaEken\Loops\Contracts\Looper;
 use IsaEken\Loops\Contracts\Workable;
 use IsaEken\Loops\Exceptions\NotWorkedException;
 use IsaEken\Loops\Index;
+use Stringable;
 
-class DefaultWorker implements Workable
+class DefaultWorker implements Workable, Breakable, Arrayable, Jsonable, Stringable
 {
     /**
      * The Looper instance.
