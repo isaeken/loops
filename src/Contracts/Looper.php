@@ -39,10 +39,10 @@ interface Looper extends Breakable
     /**
      * Set worker instance.
      *
-     * @param Workable $worker
+     * @param Workable|string $worker
      * @return self
      */
-    public function setWorker(Workable $worker): self;
+    public function setWorker(Workable|string $worker): self;
 
     /**
      * Get worker instance.
