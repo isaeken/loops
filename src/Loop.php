@@ -21,7 +21,7 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
     private Workable|null $worker = null;
 
     /**
-     * @var int $length
+     * @var int
      */
     private int $length = 0;
 
@@ -40,7 +40,7 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
         $this->setCallback($callback);
 
         if ($this->worker === null) {
-            $this->worker = new DefaultWorker;
+            $this->worker = new DefaultWorker();
             $this->worker->setLooper($this);
         }
     }

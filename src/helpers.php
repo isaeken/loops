@@ -3,7 +3,7 @@
 use IsaEken\Loops\Contracts\LoopCallback;
 use IsaEken\Loops\Loop;
 
-if (!function_exists('loop')) {
+if (! function_exists('loop')) {
     /**
      * Run the loop instance.
      *
@@ -16,11 +16,12 @@ if (!function_exists('loop')) {
     {
         $loop = new Loop($length, $callback);
         $loop->run();
+
         return $loop->results();
     }
 }
 
-if (!function_exists('loop_random')) {
+if (! function_exists('loop_random')) {
     /**
      * Call the loop function random times.
      *
