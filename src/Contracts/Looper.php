@@ -37,6 +37,21 @@ interface Looper
     public function getCallback(): LoopCallback|Closure|null;
 
     /**
+     * Set worker instance.
+     *
+     * @param Workable $worker
+     * @return void
+     */
+    public function setWorker(Workable $worker): void;
+
+    /**
+     * Get worker instance.
+     *
+     * @return Workable
+     */
+    public function getWorker(): Workable;
+
+    /**
      * Run the loop.
      *
      * @return void

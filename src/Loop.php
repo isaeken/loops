@@ -40,8 +40,7 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
         $this->setCallback($callback);
 
         if ($this->worker === null) {
-            $this->worker = new DefaultWorker();
-            $this->worker->setLooper($this);
+            $this->setWorker(new DefaultWorker());
         }
     }
 
@@ -75,6 +74,23 @@ class Loop implements Looper, Arrayable, Jsonable, Stringable
     public function setCallback(Closure|LoopCallback|null $callback = null): void
     {
         $this->callback = $callback;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getWorker(): Workable
+    {
+        return $this->worker;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setWorker(Workable $worker): void
+    {
+        $this->worker = $worker;
+        $this->worker->setLooper($this);
     }
 
     /**
