@@ -23,11 +23,13 @@
     "require": {
         "php": "^8.0",
         "illuminate/collections": "^8.77|^9.0",
-        "illuminate/support": "^8.77|^9.0",
-        "spatie/async": "^1.5"
+        "illuminate/support": "^8.77|^9.0"
     },
     "require-dev": {
         "pestphp/pest": "^1.20"
+    },
+    "suggest": {
+        "spatie/async": "For async loop"
     },
     "autoload": {
         "psr-4": {
