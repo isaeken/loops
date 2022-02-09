@@ -1,6 +1,6 @@
 {
     "name": "isaeken/loops",
-    "version": "v3.1",
+    "version": "v3.1.2",
     "description": "Basic loops library",
     "keywords": [
         "loops",
@@ -22,8 +22,8 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/collections": "^8.77",
-        "illuminate/support": "^8.77",
+        "illuminate/collections": "^8.77|^9.0",
+        "illuminate/support": "^8.77|^9.0",
         "spatie/async": "^1.5"
     },
     "require-dev": {
